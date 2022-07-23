@@ -7,6 +7,14 @@
 
         public string Description { get; set; }
 
-        public int NoOfPointOfInterest { get; set; }
+        public int NoOfPointOfInterest
+        {
+            get {
+                return pointOfInterest.Count;
+            }
+        }
+
+        public ICollection<PointOfInterestDto> pointOfInterest { get; set; } = 
+            new List<PointOfInterestDto>();
     }
 }
