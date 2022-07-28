@@ -14,8 +14,9 @@ namespace Cityinfo.API.Controllers
         {
             _logger = logger;
         }
-        [HttpGet]
-        public ActionResult<IEnumerable<PointOfInterestDto>> GetPointOfInterest(int cityid)
+
+        [HttpGet("{pid}")]
+        public ActionResult<PointOfInterestDto> GetPoI(int cityid,int pid)
         {
             var city = CitiInfoDataStore.current.Cities.FirstOrDefault(c => c.Id == cityid);
             if (city == null)
@@ -23,8 +24,30 @@ namespace Cityinfo.API.Controllers
                 _logger.LogInformation("Not found");
                 return NotFound();
             }
+            var poi = city.pointOfInterest.FirstOrDefault(p => p.Id == pid);
+            return Ok(poi);
+        }
 
-            return Ok(city.pointOfInterest);
+        [HttpGet]
+        public ActionResult<IEnumerable<PointOfInterestDto>> GetPointOfInterest(int cityid)
+        {
+            try
+            {
+                //throw new Exception("Just for fun");
+                var city = CitiInfoDataStore.current.Cities.FirstOrDefault(c => c.Id == cityid);
+                if (city == null)
+                {
+                    _logger.LogInformation("Not found");
+                    return NotFound();
+                }
+
+                return Ok(city.pointOfInterest);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical("Exception occured", ex);
+                return StatusCode(500,"Server Error");
+            }
         }
     }
 }
