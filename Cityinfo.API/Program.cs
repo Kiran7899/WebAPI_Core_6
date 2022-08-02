@@ -1,4 +1,6 @@
+using Cityinfo.API.DbContexts;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +12,8 @@ builder.Services.AddControllers(
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
-
+builder.Services.AddSingleton<FileExtensionContentTypeProvider>(); //To resolve file extensions.
+builder.Services.AddDbContext<CityInfoDBContext>(DbContextActions => DbContextActions.UseSqlite("Data Source = CityInfo.db"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
