@@ -2,6 +2,7 @@
 using Cityinfo.API.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cityinfo.API.Migrations
 {
     [DbContext(typeof(CityInfoDBContext))]
-    partial class CityInfoDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220802104905_pointofinterest_fields")]
+    partial class pointofinterest_fields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.7");
